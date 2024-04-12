@@ -1,21 +1,29 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Todo List</h1>
-
-<a href="{% url 'tasks:new' %}">New Task</a>
-
-<ul>
-    {% for task in tasks %}
-    <li>
-        <div>
-            {% if task.completed %}
-            <a href="{% url 'tasks:undone' task.id %}">✖</a>
-            {% else %}
-            <a href="{% url 'tasks:done' task.id %}">✔</a>
-            {% endif %}
-            <a href="{% url 'tasks:detail' task.id %}">{{task.content}}</a>
+<section class="hero is-primary is-small">
+    <div class="hero-body">
+        <p class="title">Todo List</p>
+        <a class="button" href="{% url 'tasks:new' %}">➕ New Task</a>
+    </div>
+</section>
+<section class="section">
+    <div class="container">
+        <div class="fixed-grid has-1-cols">
+            <div class="grid">
+                {% for task in tasks %}
+                <div class="cell">
+                    <div class="box">
+                        {% if task.completed %}
+                        <a class="button is-responsive is-small" href="{% url 'tasks:undone' task.id %}">✖</a>
+                        {% else %}
+                        <a class="button is-responsive is-small" href="{% url 'tasks:done' task.id %}">✔</a>
+                        {% endif %}
+                        <a class="block" href="{% url 'tasks:detail' task.id %}">{{task.content}}</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
         </div>
-    </li>
-    {% endfor %}
-</ul>
+    </div>
+</section>
 {% endblock %}

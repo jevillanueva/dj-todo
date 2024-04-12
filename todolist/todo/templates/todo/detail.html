@@ -3,30 +3,52 @@
 {% block title %}Detail{% endblock %}
 
 {% block menu %}
-<h1><a href="{%url 'tasks:index' %}">Home</a></h1>
+<section class="hero is-success is-small">
+    <div class="hero-body">
+        <a class="title" href="{%url 'tasks:index' %}">◀ Home</a>
+    </div>
+</section>
 {% endblock %}
 
 {% block content %}
-<h1>Detail</h1>
-<h2>{{task.content}}</h2>
-<h2>{{task.created_at}}</h2>
-<h3>{{task.completed}}</h3>
 
-<a href="{% url 'tasks:edit' task.id %}">Edit</a>
-<button id="delete">Delete</button>
-<script>
-    document.getElementById('delete').addEventListener('click', function() {
-        fetch("{% url 'tasks:delete' task.id %}", {
-            method: 'DELETE',
-            headers: {
-                'X-CSRFToken': '{{csrf_token}}'
-            }
-        }).then(function(response) {
-            if (response.ok) {
-                window.location.href = "{% url 'tasks:index' %}";
-            }
-        });
-    });
-</script>
+<section class="section">
+    <div class="container">
+        <div class="box">
 
+            <h1 class="title">Detail</h1>
+            <div class="block">
+                {{task.content}}
+            </div>
+            <div class="block">
+                {{task.created_at}}
+            </div>
+            <div class="block">
+                {%if task.completed %}Completado{%else%}Pendiente{%endif%}
+            </div>
+
+            <div class="buttons">
+                <a class="button is-info" href="{% url 'tasks:edit' task.id %}">📝 Edit</a>
+                <button class="button is-danger" id="delete">❌ Delete</button>
+            </div>
+
+            
+            
+            <script>
+                document.getElementById('delete').addEventListener('click', function () {
+                    fetch("{% url 'tasks:delete' task.id %}", {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRFToken': '{{csrf_token}}'
+                        }
+                    }).then(function (response) {
+                        if (response.ok) {
+                            window.location.href = "{% url 'tasks:index' %}";
+                        }
+                    });
+                });
+            </script>
+        </div>
+    </div>
+</section>
 {% endblock content %}

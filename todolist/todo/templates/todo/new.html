@@ -4,23 +4,37 @@
 {% endblock %}
 
 {% block menu %}
-<h1><a href="{%url 'tasks:index' %}">Home</a></h1>
-{% endblock %}
-{% block content %}
-{% if task is None %}
-<h1>New Task</h1>
-{% else %}
-<h1>Edit Task</h1>
-{% endif %}
-
-<form method="post" action="{% if task %}{% url 'tasks:edit' task.id  %}{%endif%}">
-    {% csrf_token %}
-    {{ form.non_field_errors }}
-    <div>
-        {{ form.content.errors }}
-        <label for="content">Content</label>
-        <input type="text" name="content" id="content" value="{{task.content}}" >
+<section class="hero is-info is-small">
+    <div class="hero-body">
+        <a class="title" href="{%url 'tasks:index' %}">◀ Home</a>
+        {% if task is None %}
+        <h1 class="subtitle">New Task</h1>
+        {% else %}
+        <h1 class="subtitle">Edit Task</h1>
+        {% endif %}
     </div>
-    <button type="submit">Save</button>
-</form>
+</section>
+{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+
+        <div class="box">
+
+            <form method="post" action="{% if task %}{% url 'tasks:edit' task.id  %}{%endif%}">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                <div class="field">
+                    <input class="input is-primary" type="text" name="content" id="content" value="{{task.content}}" placeholder="Content">
+                    {{ form.content.errors }}
+                </div>
+                <div class="field">
+                    <button class="button is-info" type="submit">📝 Save</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</section>
 {% endblock %}
