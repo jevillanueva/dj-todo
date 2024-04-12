@@ -1,0 +1,12 @@
+version: '3'
+volumes:
+  db:
+services:
+  web:
+    build:
+      context: todolist
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./todolist/db.sqlite3:/todolist/db.sqlite3
