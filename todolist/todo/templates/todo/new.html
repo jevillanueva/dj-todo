@@ -26,7 +26,8 @@
                 {% csrf_token %}
                 {{ form.non_field_errors }}
                 <div class="field">
-                    <input class="input is-primary" type="text" name="content" id="content" value="{{task.content}}" placeholder="Content">
+                    <input class="input is-primary" type="text" name="content" id="content" value="{{task.content}}"
+                        placeholder="Content">
                     {{ form.content.errors }}
                 </div>
                 <div class="field">
