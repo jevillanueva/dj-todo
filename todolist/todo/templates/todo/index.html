@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Todo List</h1>
+
+<a href="{% url 'tasks:new' %}">New Task</a>
+
+<ul>
+    {% for task in tasks %}
+    <li>
+        <div>
+            {% if task.completed %}
+            <a href="{% url 'tasks:undone' task.id %}">✖</a>
+            {% else %}
+            <a href="{% url 'tasks:done' task.id %}">✔</a>
+            {% endif %}
+            <a href="{% url 'tasks:detail' task.id %}">{{task.content}}</a>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

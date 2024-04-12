@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Detail{% endblock %}
+
+{% block menu %}
+<h1><a href="{%url 'tasks:index' %}">Home</a></h1>
+{% endblock %}
+
+{% block content %}
+<h1>Detail</h1>
+<h2>{{task.content}}</h2>
+<h2>{{task.created_at}}</h2>
+<h3>{{task.completed}}</h3>
+
+<a href="{% url 'tasks:edit' task.id %}">Edit</a>
+<button id="delete">Delete</button>
+<script>
+    document.getElementById('delete').addEventListener('click', function() {
+        fetch("{% url 'tasks:delete' task.id %}", {
+            method: 'DELETE',
+            headers: {
+                'X-CSRFToken': '{{csrf_token}}'
+            }
+        }).then(function(response) {
+            if (response.ok) {
+                window.location.href = "{% url 'tasks:index' %}";
+            }
+        });
+    });
+</script>
+
+{% endblock content %}
